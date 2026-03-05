@@ -9,11 +9,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <style>
         :root { --gold: #ff9933; --neon: #14F195; }
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
-        .card { background: #111; border: 2px solid var(--gold); padding: 25px; border-radius: 20px; margin: 20px auto; max-width: 450px; box-shadow: 0 0 15px rgba(255,153,51,0.3); }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
+        .card { background: #111; border: 2px solid var(--gold); padding: 25px; border-radius: 20px; margin: 20px auto; max-width: 450px; box-shadow: 0 0 20px rgba(255,153,51,0.2); }
         .btn { width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; font-size: 16px; transition: 0.3s; }
         .btn-buy { background: var(--gold); color: #000; }
-        .btn-buy:hover { background: #ffcc33; transform: scale(1.02); }
         input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--gold); background: #222; color: #fff; text-align: center; font-size: 18px; }
         .qr-box { background: #fff; padding: 15px; border-radius: 15px; width: 180px; margin: 15px auto; }
         #status { font-size: 13px; color: var(--neon); margin-top: 10px; font-weight: bold; }
@@ -38,11 +37,11 @@
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=6393339842@kotak811&pn=ABHISHEK&am=0&cu=INR" style="width:100%">
         </div>
         <p style="font-size: 14px; color: #000; background: #fff; display: inline-block; padding: 5px 10px; border-radius: 5px;">6393339842@kotak811</p>
-        <p style="font-size: 12px; margin-top: 10px;">Scan via Any UPI App (PhonePe/GPay)</p>
+        <p style="font-size: 12px; margin-top: 10px;">Scan via Any UPI App (PhonePe/GPay/Paytm)</p>
     </div>
 
     <script>
-        // --- Firebase Config ---
+        // --- Firebase Config (RAMcoin प्रोजेक्ट) ---
         const firebaseConfig = {
             apiKey: "AIzaSyBUHVzbzmx0nPED192iIYw0Pfh5EdtmnA0",
             authDomain: "ramcoin-c7b77.firebaseapp.com",
@@ -61,23 +60,22 @@
             if(!amount || amount <= 0) { alert("कृपया सही अमाउंट डालें!"); return; }
 
             try {
-                // Connect Solana Wallet
+                // Connect Solana Wallet (Phantom)
                 const resp = await window.solana.connect();
                 const wallet = resp.publicKey.toString();
                 status.innerText = "Wallet Connected! Saving Record...";
 
-                // Save to Firebase
+                // Firebase में ट्रांजैक्शन सेव करना
                 const txId = "PYC-" + Date.now();
                 await database.ref('sales/' + txId).set({
                     buyer_wallet: wallet,
                     amount_sol: amount,
-                    pyc_allotted: amount * 1000000,
-                    time: new Date().toLocaleString(),
-                    status: "Pending/Manual_Verification"
+                    pyc_allotted: amount * 1000000, // 1 SOL = 1M PYC
+                    time: new Date().toLocaleString()
                 });
 
-                status.innerText = "✅ Success! रिकॉर्ड सुरक्षित सेव हो गया है।";
-                alert("बधाई! आपका ट्रांजैक्शन रिकॉर्ड डेटाबेस में सुरक्षित हो गया है।");
+                status.innerText = "✅ Success! आपका रिकॉर्ड सुरक्षित सेव हो गया है।";
+                alert("बधाई! आपका डेटाबेस रिकॉर्ड सेव हो गया है।");
             } catch (err) { 
                 status.innerText = "❌ एरर: वॉलेट कनेक्ट नहीं हुआ!"; 
             }
@@ -85,4 +83,3 @@
     </script>
 </body>
 </html>
-
