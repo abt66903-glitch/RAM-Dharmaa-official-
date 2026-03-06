@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Dharmaa Admin 👑</title>
+    <script>
+        // अभिषेक भाई का नया पासवर्ड सिस्टम
+        (function() {
+            let pass = prompt("प्रणाम अभिषेक भाई! नया एडमिन कोड डालें:");
+            if (pass !== "ABHISHEK@KNP786") { 
+                alert("पहुँच वर्जित! वापस जाइये।");
+                window.location.href = "index.html";
+            }
+        })();
+    </script>
+    <style>
+        body { background: #000; color: #ff9933; font-family: sans-serif; text-align: center; padding: 50px; }
+        .box { border: 2px solid #ff9933; padding: 20px; border-radius: 20px; background: #111; }
+        button { background: #ff9933; color: #000; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>DHARMAA HQ CONTROL 🚩</h1>
+        <p>यहाँ से आप सब कुछ मैनेज करेंगे।</p>
+        <button onclick="alert('Blue Tick Activated!')">Give Blue Tick</button>
+        <br><br>
+        <button onclick="window.location.href='index.html'" style="background:#444; color:#fff;">Back to Site</button>
+    </div>
+</body>
+</html>
