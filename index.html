@@ -186,3 +186,31 @@ function createPost() {
     document.getElementById('postInput').value = "";
 }
 </script>
+function createPost() {
+    let text = document.getElementById('postInput').value;
+    if(text.trim() === "") return;
+
+    let feed = document.getElementById('feedContainer');
+    let newPost = document.createElement('div');
+    newPost.id = "post-" + Date.now(); // हर पोस्ट की एक आईडी
+    newPost.className = "glass-card";
+    newPost.style.cssText = "background:rgba(255,255,255,0.03); margin-bottom:15px; padding:15px; border-radius:12px; position:relative;";
+    
+    newPost.innerHTML = `
+        <div style="display:flex; justify-content:space-between;">
+            <span style="font-weight:bold; color:var(--gold);">🚩 सदस्य</span>
+            <button onclick="deletePost('${newPost.id}')" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
+        </div>
+        <p style="color:#ddd;">${text}</p>
+    `;
+    
+    feed.prepend(newPost);
+    document.getElementById('postInput').value = "";
+}
+
+function deletePost(id) {
+    let confirmDel = confirm("अभिषेक भाई, क्या इस पोस्ट को हटाना है?");
+    if(confirmDel) {
+        document.getElementById(id).remove();
+    }
+}
