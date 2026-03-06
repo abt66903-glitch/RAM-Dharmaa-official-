@@ -135,3 +135,54 @@
     </script>
 </body>
 </html>
+<div class="glass-card" style="margin-top:20px; border-top: 2px solid var(--gold);">
+    <h3 style="color:var(--gold); display:flex; align-items:center;">
+        <span style="margin-right:10px;">🚩</span> धरमा चौपाल (Feed)
+    </h3>
+    
+    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; margin-bottom:20px;">
+        <textarea id="postInput" placeholder="अपनी बात साझा करें, अभिषेक भाई पढ़ रहे हैं..." 
+            style="width:100%; background:transparent; border:none; color:white; outline:none; resize:none; font-family:inherit;"></textarea>
+        <hr style="border:0.1px solid #333; margin:10px 0;">
+        <button onclick="createPost()" style="background:var(--gold); color:black; border:none; padding:8px 25px; border-radius:20px; font-weight:bold; cursor:pointer; float:right; transition:0.3s;">
+            साझा करें
+        </button>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div id="feedContainer">
+        <div style="text-align:center; color:gray; font-size:12px; padding:20px;">
+            अभी कोई चर्चा नहीं हुई है। पहली बात आप लिखिये!
+        </div>
+    </div>
+</div>
+
+<script>
+function createPost() {
+    let text = document.getElementById('postInput').value;
+    if(text.trim() === "") return;
+
+    let feed = document.getElementById('feedContainer');
+    if(feed.innerText.includes("अभी कोई चर्चा नहीं")) feed.innerHTML = "";
+
+    let newPost = document.createElement('div');
+    newPost.style.cssText = "background:rgba(255,255,255,0.03); margin-bottom:15px; padding:15px; border-radius:12px; border:1px solid #222;";
+    
+    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    newPost.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-weight:bold; color:var(--gold); font-size:14px;">🚩 सदस्य</span>
+            <span style="color:gray; font-size:10px;">${time}</span>
+        </div>
+        <p style="font-size:14px; color:#ddd; line-height:1.4;">${text}</p>
+        <div style="margin-top:10px; display:flex; gap:15px;">
+            <button onclick="this.style.color='var(--gold)'" style="background:transparent; border:none; color:gray; cursor:pointer; font-size:12px;">🙏 समर्थन</button>
+            <button style="background:transparent; border:none; color:gray; cursor:pointer; font-size:12px;">💬 विचार</button>
+        </div>
+    `;
+    
+    feed.prepend(newPost);
+    document.getElementById('postInput').value = "";
+}
+</script>
