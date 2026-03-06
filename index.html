@@ -3,140 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAM MASTER CONTROL | KANPUR 🚩</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <title>Dharmaa Protocol | Royal Kanpur HQ</title>
     <style>
-        :root { --gold: #ff9933; --neon: #14F195; --dark: #0a0a0a; }
-        body { background: var(--dark); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; text-align: center; }
-        .container { background: #151515; border: 1px solid var(--gold); padding: 20px; border-radius: 20px; max-width: 400px; margin: auto; }
-        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .product-card { background: #1a1a1a; border-radius: 12px; padding: 10px; border: 1px solid #333; position: relative; }
-        .prod-img { width: 100%; height: 90px; border-radius: 8px; object-fit: cover; background: #333; }
-        .price { color: var(--neon); font-size: 14px; font-weight: bold; margin: 5px 0; }
-        .btn { width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; font-size: 12px; }
-        .btn-buy { background: var(--gold); color: #000; }
-        input { width: 85%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; }
-        #adminPage, #shopPage, #cartPage { display: none; }
-        .admin-btn { position: fixed; bottom: 10px; right: 10px; background: rgba(255,153,51,0.2); color: #555; border: none; font-size: 10px; border-radius: 5px; cursor: pointer; }
+        :root { --gold: #ff9933; --blue: #3165d4; --green: #14f195; --card: #111; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; }
+        .container { padding: 15px; }
+        input, button { font-family: inherit; }
+        
+        /* Utility Classes */
+        .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .verified-badge { background: #0095f6; color: #fff; border-radius: 50%; width: 14px; height: 14px; font-size: 8px; display: inline-flex; align-items: center; justify-content: center; }
+        
+        /* Stories */
+        .stories-bar { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; scrollbar-width: none; }
+        .story-circle { min-width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; }
+        .story-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        /* Ticker */
+        .ticker-wrap { background: #1a1a1a; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); padding: 5px 0; overflow: hidden; position: fixed; bottom: 0; width: 100%; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <img src="https://raw.githubusercontent.com/abt66903-glitch/RAM-Dharmaa-official-/main/1000014690.png" style="width:70px; border-radius:50%; border:2px solid var(--gold); margin:10px;">
-
-    <div id="regPage" class="container">
-        <h2 style="color:var(--gold);">RAM DIGITAL MALL</h2>
-        <input type="text" id="regName" placeholder="अपना नाम">
-        <button class="btn btn-buy" onclick="enterMall()">SHOP NOW</button>
+    <div id="gatekeeper" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <img src="https://raw.githubusercontent.com/abt66903-glitch/RAM-Dharmaa-official-/main/1000014690.png" onclick="countAdminClicks()" style="width:100px; margin-bottom:20px; cursor:pointer;">
+        <h2 style="color:var(--gold); letter-spacing: 2px;">DHARMAA HUB 🚩</h2>
+        <input type="password" id="inviteInput" placeholder="ENTER SECRET CODE" style="background:#111; border:1px solid #333; color:var(--gold); padding:15px; border-radius:10px; text-align:center; outline:none;">
+        <button onclick="checkAccess()" style="margin-top:20px; background:var(--gold); border:none; color:#000; padding:10px 40px; border-radius:5px; font-weight:bold; cursor:pointer;">प्रवेश करें</button>
     </div>
 
-    <div id="shopPage" class="container">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <p style="color:var(--gold); font-size:12px;">Welcome, <span id="uName"></span></p>
-            <button onclick="showCart()" style="background:none; border:none; color:var(--neon); cursor:pointer;">🛒 Cart (<span id="cartCount">0</span>)</button>
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
+            <img src="https://raw.githubusercontent.com/abt66903-glitch/RAM-Dharmaa-official-/main/1000014690.png" class="logo" style="width:50px;">
+            <div style="text-align:right;">
+                <div style="font-weight:bold;">Abhishek Dharmaa <span class="verified-badge">✓</span></div>
+                <small style="color:var(--gold);">कानपुर मुख्यालय 🚩</small>
+            </div>
         </div>
-        <div id="productGrid" class="shop-grid"></div>
-    </div>
 
-    <div id="adminPage" class="container">
-        <h2 style="color:var(--neon);">ADMIN CONTROL</h2>
-        <input type="text" id="pName" placeholder="Product Name">
-        <input type="number" id="pPrice" placeholder="New Price (कम रखें)">
-        <input type="text" id="pImg" placeholder="Image URL">
-        <button class="btn btn-buy" onclick="addProduct()">UPDATE PRODUCT</button>
-        <button class="btn" style="background:red; color:white; margin-top:10px;" onclick="location.reload()">CLOSE ADMIN</button>
-    </div>
-
-    <div id="cartPage" class="container">
-        <h2 style="color:var(--gold);">Your Bill</h2>
-        <div id="billItems" style="text-align:left;"></div>
-        <h3 id="totalPrice" style="color:var(--neon);"></h3>
-        <div style="background:#fff; padding:10px; border-radius:15px; margin:15px 0;">
-            <img id="upiQR" src="" style="width:130px;">
+        <div class="stories-bar">
+            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=1"></div>
+            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=2"></div>
+            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=3"></div>
+            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=4"></div>
         </div>
-        <button class="btn btn-buy" onclick="confirmOrder()">CONFIRM ORDER</button>
-        <button class="btn" style="background:#333; color:#fff; margin-top:5px;" onclick="backToShop()">BACK</button>
+
+        <div class="glass-card" style="background: linear-gradient(135deg, #1a1a1a, #000); border: 1px solid var(--gold);">
+            <small style="color:#888;">कुल बैलेंस (RAM Coins)</small>
+            <h1 style="margin: 5px 0; font-size: 35px;">15,750 <span style="font-size:15px; color:var(--green);">+2.5%</span></h1>
+            <hr style="border:0; border-top:1px solid #222; margin:15px 0;">
+            <div style="display:flex; gap:10px; align-items:center;">
+                <div style="font-size:25px;">👑</div>
+                <div>
+                    <div style="font-size:12px; color:var(--gold);">LEVEL: बड़ा व्यापारी</div>
+                    <div style="font-size:10px; color:var(--green);">VIP सुविधाएँ अनलॉक हैं</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:10px; overflow-x:auto; margin-bottom:20px; scrollbar-width:none;">
+            <div style="min-width:140px; background:linear-gradient(45deg, #ff9966, #ff5e62); padding:15px; border-radius:15px; text-align:center;">
+                <div style="font-size:25px;">🎠</div>
+                <div style="font-size:12px; font-weight:bold;">Childhood Hub</div>
+            </div>
+            <div style="min-width:140px; background:linear-gradient(45deg, #834d9b, #d04ed6); padding:15px; border-radius:15px; text-align:center;">
+                <div style="font-size:25px;">💎</div>
+                <div style="font-size:12px; font-weight:bold;">Beauty Hub</div>
+            </div>
+        </div>
+
+        <div class="glass-card" style="border-left: 5px solid #ff9933;">
+            <h3 style="margin-top:0; color:#ff9933;">🚩 हमारा संकल्प (Manifesto)</h3>
+            <ul style="padding-left:15px; font-size:12px; color:#ccc;">
+                <li>डिजिटल स्वराज: हर व्यापारी को आज़ादी।</li>
+                <li>युवा शक्ति: नए अवसर और तकनीक।</li>
+                <li>पारदर्शिता: हर लेन-देन सुरक्षित।</li>
+            </ul>
+        </div>
+
+        <div class="glass-card">
+            <h3 style="margin-top:0; color:var(--blue);">🕹️ DHARMAA ARCADE</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <button style="background:#222; border:1px solid #333; color:#fff; padding:10px; border-radius:10px;">🐍 Retro Snake</button>
+                <button style="background:var(--blue); border:none; color:#fff; padding:10px; border-radius:10px; font-weight:bold;">🚀 RAM Rocket</button>
+            </div>
+        </div>
+
+        <div class="glass-card" style="border: 1px solid #444;">
+            <h4 style="margin:0 0 10px 0; text-align:center;">🏆 SHERSHAH BOARD</h4>
+            <div style="font-size:12px; display:flex; justify-content:space-between; padding:5px 0;">
+                <span>1. Abhishek Dharmaa</span>
+                <span style="color:var(--gold);">50k pts</span>
+            </div>
+            <div style="font-size:12px; display:flex; justify-content:space-between; padding:5px 0; opacity:0.6;">
+                <span>2. Kanpur_Trader</span>
+                <span>32k pts</span>
+            </div>
+        </div>
     </div>
 
-    <button class="admin-btn" onclick="openAdmin()">Master Login</button>
+    <div class="ticker-wrap">
+        <marquee scrollamount="5" style="color:#fff; font-size:12px;">
+            🚩 [BREAKING]: अभिषेक भाई का नया संकल्प पत्र जारी... &nbsp;&nbsp;&nbsp; 📦 [MARKET]: RAM Coin में भारी उछाल... &nbsp;&nbsp;&nbsp; 🗳️ [VOTE]: आज ही अपना मत दर्ज करें...
+        </marquee>
+    </div>
+
+    <a href="https://wa.me/916393339842" style="position:fixed; bottom:70px; right:20px; background:#25d366; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 0 10px rgba(0,0,0,0.5);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:30px;">
+    </a>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyBUHVzbzmx0nPED192iIYw0Pfh5EdtmnA0",
-            authDomain: "ramcoin-c7b77.firebaseapp.com",
-            projectId: "ramcoin-c7b77",
-            databaseURL: "https://ramcoin-c7b77-default-rtdb.firebaseio.com/",
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        let cart = []; let userName = "";
-
-        // --- Load Products from Firebase ---
-        function loadProducts() {
-            database.ref('ram_products').on('value', (snap) => {
-                const data = snap.val();
-                const grid = document.getElementById('productGrid');
-                grid.innerHTML = "";
-                for(let id in data) {
-                    let p = data[id];
-                    grid.innerHTML += `<div class="product-card">
-                        <img src="${p.img}" class="prod-img">
-                        <p style="font-size:10px; margin:5px 0;">${p.name}</p>
-                        <div class="price">₹${p.price}</div>
-                        <button class="btn btn-buy" onclick="addToCart('${p.name}', ${p.price})">ADD</button>
-                    </div>`;
-                }
-            });
+        // Entry Logic
+        function checkAccess() {
+            const code = document.getElementById('inviteInput').value;
+            if(code === "RAM786") {
+                document.getElementById('gatekeeper').style.display = 'none';
+            } else {
+                alert("गलत कोड! केवल खास व्यापारियों को ही अनुमति है।");
+            }
         }
 
-        function enterMall() {
-            userName = document.getElementById('regName').value;
-            if(!userName) return alert("नाम भरें!");
-            document.getElementById('regPage').style.display='none';
-            document.getElementById('shopPage').style.display='block';
-            document.getElementById('uName').innerText = userName;
-            loadProducts();
-        }
-
-        function addToCart(n, p) { cart.push({n,p}); document.getElementById('cartCount').innerText = cart.length; }
-
-        function showCart() {
-            document.getElementById('shopPage').style.display='none';
-            document.getElementById('cartPage').style.display='block';
-            let b = ""; let t = 0;
-            cart.forEach(i => { b += `<div style="display:flex; justify-content:space-between; font-size:12px; padding:5px; border-bottom:1px solid #333;"><span>${i.n}</span><span>₹${i.p}</span></div>`; t += i.p; });
-            document.getElementById('billItems').innerHTML = b;
-            document.getElementById('totalPrice').innerText = "Total: ₹" + t;
-            document.getElementById('upiQR').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=6393339842@kotak811&pn=ABHISHEK&am=${t}&cu=INR`;
-        }
-
-        function backToShop() { document.getElementById('cartPage').style.display='none'; document.getElementById('shopPage').style.display='block'; }
-
-        // --- Master Admin Functions ---
-        function openAdmin() {
-            let pass = prompt("कानपुर मुख्यालय का पासवर्ड डालें:");
-            if(pass === "RAM786") {
-                document.getElementById('regPage').style.display='none';
-                document.getElementById('shopPage').style.display='none';
-                document.getElementById('adminPage').style.display='block';
-            } else { alert("गलत पासवर्ड!"); }
-        }
-
-        function addProduct() {
-            const name = document.getElementById('pName').value;
-            const price = parseInt(document.getElementById('pPrice').value);
-            const img = document.getElementById('pImg').value;
-            if(!name || !price || !img) return alert("सब भरें!");
-            
-            database.ref('ram_products/' + name).set({ name, price, img })
-            .then(() => alert("Product Updated at Low Price!"));
-        }
-
-        function confirmOrder() {
-            database.ref('ram_orders/' + Date.now()).set({ customer: userName, items: cart, time: new Date().toLocaleString() })
-            .then(() => { alert("Order Confirmed!"); location.reload(); });
+        // Admin Secret Click (3 times on logo)
+        let adminClicks = 0;
+        function countAdminClicks() {
+            adminClicks++;
+            if(adminClicks === 3) {
+                window.location.href = "admin.html";
+            }
+            setTimeout(() => { adminClicks = 0; }, 3000);
         }
     </script>
 </body>
