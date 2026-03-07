@@ -3,77 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram DHARMaaa Official - The Real Web World</title>
+    <title>Ram DHARMaaa Official</title>
     <style>
-        /* प्रोफेशनल लुक के लिए CSS */
-        body {
+        body, html {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0a; /* डार्क और क्लासी लुक */
-            color: #ffffff;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: white;
+        }
+
+        /* बैकग्राउंड कवर (Back Cover) */
+        .cover-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* यहाँ अपनी पसंद का कवर लिंक डालें */
+            background-size: cover;
+            background-position: center;
+            border-bottom: 4px solid #ff4b2b;
+        }
+
+        /* प्रोफाइल इमेज (Main Image) */
+        .profile-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            margin-top: -75px; /* इमेज को कवर के ऊपर चढ़ाने के लिए */
         }
-        header {
-            background: linear-gradient(45deg, #ff4b2b, #ff416c);
-            width: 100%;
-            padding: 20px 0;
+
+        .main-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #111;
+            background: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); /* यहाँ अपनी फोटो का लिंक डालें */
+            background-size: cover;
+            box-shadow: 0 0 20px rgba(255, 75, 43, 0.5);
+        }
+
+        .content {
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .main-container {
-            width: 90%;
-            max-width: 800px;
-            margin-top: 50px;
-            text-align: center;
-        }
-        .identity {
-            font-size: 1.2rem;
-            color: #00ffcc;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin: 10px 0;
-            text-transform: uppercase;
-        }
-        .status-box {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #333;
-            margin-top: 30px;
-        }
-        .footer {
-            margin-top: auto;
             padding: 20px;
-            font-size: 0.8rem;
-            color: #666;
+        }
+
+        .identity {
+            color: #ff4b2b;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .tagline {
+            color: #888;
+            font-style: italic;
+        }
+
+        .card {
+            background: #222;
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            border-left: 5px solid #ff4b2b;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h2>🔱 DHARMAA SOCIAL 🔱</h2>
-    </header>
+    <div class="cover-photo"></div>
 
-    <div class="main-container">
-        <div class="identity">786.214.1000*1008.16</div>
-        <h1>Ram DHARMaaa Official</h1>
-        <p><i>The Real Web World - Next Generation</i></p>
-
-        <div class="status-box">
-            <h3>प्रोजेक्ट स्टेटस: "Ready for Next Step"</h3>
-            <p>अभिषेक भाई, यहाँ हम आपका अगला बड़ा फीचर जोड़ेंगे।</p>
-        </div>
+    <div class="profile-section">
+        <div class="main-image"></div>
     </div>
 
-    <div class="footer">
-        © 2026 Ram DHARMaaa | Real Web World
+    <div class="content">
+        <p class="identity">786.214.1000*1008.16</p>
+        <h1>Ram DHARMaaa Official</h1>
+        <p class="tagline">The Real Web World</p>
+
+        <div class="card">
+            <h3>स्वागत है, अभिषेक भाई!</h3>
+            <p>Firebase हट गया है। अब आपकी वेबसाइट का डिज़ाइन और इमेज ही इसकी असली ताकत हैं।</p>
+        </div>
     </div>
 
 </body>
