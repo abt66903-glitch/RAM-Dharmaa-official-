@@ -1,4 +1,23 @@
 const firebaseConfig = {
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+<script>
+  // जो कोड आपने पहले ही डाला है
+  const firebaseConfig = {
+    apiKey: "AIzaSyBUHVzbzwx0nPED192IIYw0...", 
+    authDomain: "ramcoin-c7b77.firebaseapp.com",
+    databaseURL: "https://ramcoin-c7b77-default-rtdb.firebaseio.com",
+    projectId: "ramcoin-c7b77",
+    storageBucket: "ramcoin-c7b77.appspot.com",
+    messagingSenderId: "194837969479",
+    appId: "1:194837969479:web:37bbcf9ffe3396b69d8f62"
+  };
+
+  // अब इसे चालू (Initialize) करें
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
   apiKey: "AIzaSyBUHVzbzwx0nPED192IIYw0...", // इसे अपने पैनल से पूरा कॉपी करें
   authDomain: "ramcoin-c7b77.firebaseapp.com",
   databaseURL: "https://ramcoin-c7b77-default-rtdb.firebaseio.com",
