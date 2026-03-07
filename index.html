@@ -1,232 +1,33 @@
-
-  apiKey: "AIzaSyBUHVzbzwx0nPED192IIYw0...", // इसे अपने पैनल से पूरा कॉपी करें
-  authDomain: "ramcoin-c7b77.firebaseapp.com",
-  databaseURL: "https://ramcoin-c7b77-default-rtdb.firebaseio.com",
-  projectId: "ramcoin-c7b77",
-  storageBucket: "ramcoin-c7b77.appspot.com",
-  messagingSenderId: "194837969479",
-  appId: "1:194837969479:web:37bbcf9ffe3396b69d8f62"
-};
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dharmaa Protocol | Royal Kanpur HQ</title>
+    <title>धर्मा सोशल - रामधन ऑफिशियल</title>
     <style>
-        :root { --gold: #ff9933; --blue: #3165d4; --green: #14f195; --card: #111; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; }
-        .container { padding: 15px; }
-        input, button { font-family: inherit; }
-        
-        /* Utility Classes */
-        .glass-card { background: var(--card); border: 1px solid #222; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-        .verified-badge { background: #0095f6; color: #fff; border-radius: 50%; width: 14px; height: 14px; font-size: 8px; display: inline-flex; align-items: center; justify-content: center; }
-        
-        /* Stories */
-        .stories-bar { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; scrollbar-width: none; }
-        .story-circle { min-width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; }
-        .story-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        /* Ticker */
-        .ticker-wrap { background: #1a1a1a; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); padding: 5px 0; overflow: hidden; position: fixed; bottom: 0; width: 100%; z-index: 100; }
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        textarea { width: 90%; height: 80px; margin-bottom: 10px; border-radius: 5px; padding: 10px; border: 1px solid #ccc; }
+        button { background-color: #1877f2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #posts { margin-top: 20px; text-align: left; }
+        .post-box { background: #fff; padding: 10px; border-bottom: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; }
     </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-    <div id="gatekeeper" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
-        <img src="https://raw.githubusercontent.com/abt66903-glitch/RAM-Dharmaa-official-/main/1000014690.png" onclick="countAdminClicks()" style="width:100px; margin-bottom:20px; cursor:pointer;">
-        <h2 style="color:var(--gold); letter-spacing: 2px;">DHARMAA HUB 🚩</h2>
-        <input type="password" id="inviteInput" placeholder="ENTER SECRET CODE" style="background:#111; border:1px solid #333; color:var(--gold); padding:15px; border-radius:10px; text-align:center; outline:none;">
-        <button onclick="checkAccess()" style="margin-top:20px; background:var(--gold); border:none; color:#000; padding:10px 40px; border-radius:5px; font-weight:bold; cursor:pointer;">प्रवेश करें</button>
-    </div>
+<div class="container">
+    <h2>🚩 धर्मा सोशल 🚩</h2>
+    <textarea id="postInput" placeholder="राम-राम भाई! आज क्या विचार हैं?"></textarea><br>
+    <button onclick="sendPost()">Post करें</button>
 
-    <div class="container">
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
-            <img src="https://raw.githubusercontent.com/abt66903-glitch/RAM-Dharmaa-official-/main/1000014690.png" class="logo" style="width:50px;">
-            <div style="text-align:right;">
-                <div style="font-weight:bold;">Abhishek Dharmaa <span class="verified-badge">✓</span></div>
-                <small style="color:var(--gold);">कानपुर मुख्यालय 🚩</small>
-            </div>
-        </div>
-
-        <div class="stories-bar">
-            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=1"></div>
-            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=2"></div>
-            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=3"></div>
-            <div class="story-circle"><img src="https://i.pravatar.cc/100?u=4"></div>
-        </div>
-
-        <div class="glass-card" style="background: linear-gradient(135deg, #1a1a1a, #000); border: 1px solid var(--gold);">
-            <small style="color:#888;">कुल बैलेंस (RAM Coins)</small>
-            <h1 style="margin: 5px 0; font-size: 35px;">15,750 <span style="font-size:15px; color:var(--green);">+2.5%</span></h1>
-            <hr style="border:0; border-top:1px solid #222; margin:15px 0;">
-            <div style="display:flex; gap:10px; align-items:center;">
-                <div style="font-size:25px;">👑</div>
-                <div>
-                    <div style="font-size:12px; color:var(--gold);">LEVEL: बड़ा व्यापारी</div>
-                    <div style="font-size:10px; color:var(--green);">VIP सुविधाएँ अनलॉक हैं</div>
-                </div>
-            </div>
-        </div>
-
-        <div style="display:flex; gap:10px; overflow-x:auto; margin-bottom:20px; scrollbar-width:none;">
-            <div style="min-width:140px; background:linear-gradient(45deg, #ff9966, #ff5e62); padding:15px; border-radius:15px; text-align:center;">
-                <div style="font-size:25px;">🎠</div>
-                <div style="font-size:12px; font-weight:bold;">Childhood Hub</div>
-            </div>
-            <div style="min-width:140px; background:linear-gradient(45deg, #834d9b, #d04ed6); padding:15px; border-radius:15px; text-align:center;">
-                <div style="font-size:25px;">💎</div>
-                <div style="font-size:12px; font-weight:bold;">Beauty Hub</div>
-            </div>
-        </div>
-
-        <div class="glass-card" style="border-left: 5px solid #ff9933;">
-            <h3 style="margin-top:0; color:#ff9933;">🚩 हमारा संकल्प (Manifesto)</h3>
-            <ul style="padding-left:15px; font-size:12px; color:#ccc;">
-                <li>डिजिटल स्वराज: हर व्यापारी को आज़ादी।</li>
-                <li>युवा शक्ति: नए अवसर और तकनीक।</li>
-                <li>पारदर्शिता: हर लेन-देन सुरक्षित।</li>
-            </ul>
-        </div>
-
-        <div class="glass-card">
-            <h3 style="margin-top:0; color:var(--blue);">🕹️ DHARMAA ARCADE</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <button style="background:#222; border:1px solid #333; color:#fff; padding:10px; border-radius:10px;">🐍 Retro Snake</button>
-                <button style="background:var(--blue); border:none; color:#fff; padding:10px; border-radius:10px; font-weight:bold;">🚀 RAM Rocket</button>
-            </div>
-        </div>
-
-        <div class="glass-card" style="border: 1px solid #444;">
-            <h4 style="margin:0 0 10px 0; text-align:center;">🏆 SHERSHAH BOARD</h4>
-            <div style="font-size:12px; display:flex; justify-content:space-between; padding:5px 0;">
-                <span>1. Abhishek Dharmaa</span>
-                <span style="color:var(--gold);">50k pts</span>
-            </div>
-            <div style="font-size:12px; display:flex; justify-content:space-between; padding:5px 0; opacity:0.6;">
-                <span>2. Kanpur_Trader</span>
-                <span>32k pts</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="ticker-wrap">
-        <marquee scrollamount="5" style="color:#fff; font-size:12px;">
-            🚩 [BREAKING]: अभिषेक भाई का नया संकल्प पत्र जारी... &nbsp;&nbsp;&nbsp; 📦 [MARKET]: RAM Coin में भारी उछाल... &nbsp;&nbsp;&nbsp; 🗳️ [VOTE]: आज ही अपना मत दर्ज करें...
-        </marquee>
-    </div>
-
-    <a href="https://wa.me/916393339842" style="position:fixed; bottom:70px; right:20px; background:#25d366; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 0 10px rgba(0,0,0,0.5);">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:30px;">
-    </a>
-
-    <script>
-        // Entry Logic
-        function checkAccess() {
-            const code = document.getElementById('inviteInput').value;
-            if(code === "RAM786") {
-                document.getElementById('gatekeeper').style.display = 'none';
-            } else {
-                alert("गलत कोड! केवल खास व्यापारियों को ही अनुमति है।");
-            }
-        }
-
-        // Admin Secret Click (3 times on logo)
-        let adminClicks = 0;
-        function countAdminClicks() {
-            adminClicks++;
-            if(adminClicks === 3) {
-                window.location.href = "admin.html";
-            }
-            setTimeout(() => { adminClicks = 0; }, 3000);
-        }
-    </script>
-</body>
-</html>
-<div class="glass-card" style="margin-top:20px; border-top: 2px solid var(--gold);">
-    <h3 style="color:var(--gold); display:flex; align-items:center;">
-        <span style="margin-right:10px;">🚩</span> धरमा चौपाल (Feed)
-    </h3>
-    
-    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; margin-bottom:20px;">
-        <textarea id="postInput" placeholder="अपनी बात साझा करें, अभिषेक भाई पढ़ रहे हैं..." 
-            style="width:100%; background:transparent; border:none; color:white; outline:none; resize:none; font-family:inherit;"></textarea>
-        <hr style="border:0.1px solid #333; margin:10px 0;">
-        <button onclick="createPost()" style="background:var(--gold); color:black; border:none; padding:8px 25px; border-radius:20px; font-weight:bold; cursor:pointer; float:right; transition:0.3s;">
-            साझा करें
-        </button>
-        <div style="clear:both;"></div>
-    </div>
-
-    <div id="feedContainer">
-        <div style="text-align:center; color:gray; font-size:12px; padding:20px;">
-            अभी कोई चर्चा नहीं हुई है। पहली बात आप लिखिये!
-        </div>
-    </div>
+    <div id="posts"></div>
 </div>
 
 <script>
-function createPost() {
-    let text = document.getElementById('postInput').value;
-    if(text.trim() === "") return;
-
-    let feed = document.getElementById('feedContainer');
-    if(feed.innerText.includes("अभी कोई चर्चा नहीं")) feed.innerHTML = "";
-
-    let newPost = document.createElement('div');
-    newPost.style.cssText = "background:rgba(255,255,255,0.03); margin-bottom:15px; padding:15px; border-radius:12px; border:1px solid #222;";
-    
-    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    
-    newPost.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span style="font-weight:bold; color:var(--gold); font-size:14px;">🚩 सदस्य</span>
-            <span style="color:gray; font-size:10px;">${time}</span>
-        </div>
-        <p style="font-size:14px; color:#ddd; line-height:1.4;">${text}</p>
-        <div style="margin-top:10px; display:flex; gap:15px;">
-            <button onclick="this.style.color='var(--gold)'" style="background:transparent; border:none; color:gray; cursor:pointer; font-size:12px;">🙏 समर्थन</button>
-            <button style="background:transparent; border:none; color:gray; cursor:pointer; font-size:12px;">💬 विचार</button>
-        </div>
-    `;
-    
-    feed.prepend(newPost);
-    document.getElementById('postInput').value = "";
-}
-</script>
-function createPost() {
-    let text = document.getElementById('postInput').value;
-    if(text.trim() === "") return;
-
-    let feed = document.getElementById('feedContainer');
-    let newPost = document.createElement('div');
-    newPost.id = "post-" + Date.now(); // हर पोस्ट की एक आईडी
-    newPost.className = "glass-card";
-    newPost.style.cssText = "background:rgba(255,255,255,0.03); margin-bottom:15px; padding:15px; border-radius:12px; position:relative;";
-    
-    newPost.innerHTML = `
-        <div style="display:flex; justify-content:space-between;">
-            <span style="font-weight:bold; color:var(--gold);">🚩 सदस्य</span>
-            <button onclick="deletePost('${newPost.id}')" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold;">X</button>
-        </div>
-        <p style="color:#ddd;">${text}</p>
-    `;
-    
-    feed.prepend(newPost);
-    document.getElementById('postInput').value = "";
-}
-
-function deletePost(id) {
-    let confirmDel = confirm("अभिषेक भाई, क्या इस पोस्ट को हटाना है?");
-    if(confirmDel) {
-        document.getElementById(id).remove();
-    }
-}<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-
-<script>
-  // आपका कॉन्फ़िग
+  // अभिषेक भाई, ये आपका असली Config कोड है
   const firebaseConfig = {
     apiKey: "AIzaSyBUHVzbzwx0nPED192IIYw0...", 
     authDomain: "ramcoin-c7b77.firebaseapp.com",
@@ -244,14 +45,27 @@ function deletePost(id) {
   // पोस्ट भेजने का फंक्शन
   function sendPost() {
     const postText = document.getElementById('postInput').value;
-    if(postText) {
-      database.ref('posts').push({
+    if(postText.trim() !== "") {
+      database.ref('all_posts').push({
         text: postText,
-        user: "Abhishek Dharmaa",
-        time: Date.now()
+        user: "रामधन ऑफिशियल",
+        time: new Date().toLocaleString()
       });
       document.getElementById('postInput').value = "";
+      alert("पोस्ट हो गया भाई!");
     }
   }
+
+  // पुरानी पोस्ट दिखाने का फंक्शन
+  database.ref('all_posts').on('value', (snapshot) => {
+    const postsDiv = document.getElementById('posts');
+    postsDiv.innerHTML = "<h3>ताज़ा पोस्ट:</h3>";
+    snapshot.forEach((childSnapshot) => {
+      const data = childSnapshot.val();
+      postsDiv.innerHTML += `<div class="post-box"><b>${data.user}:</b> <p>${data.text}</p><small>${data.time}</small></div>`;
+    });
+  });
 </script>
 
+</body>
+</html>
