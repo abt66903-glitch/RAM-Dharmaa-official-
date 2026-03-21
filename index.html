@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAM DHARMAA OFFICIAL</title>
+    <title>RAM DHARMAA OFFICIAL - 2FA SECURED</title>
     <style>
-        body { background-color: #0d1117; color: white; font-family: sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .fort-container { width: 90%; max-width: 400px; background: #1b2631; border: 3px solid #FFD700; border-radius: 25px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
-        .shahi-title { color: #FFD700; font-size: 22px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
-        .sub-text { font-size: 14px; color: #81d4fa; margin-bottom: 20px; }
+        :root { --gold: #FFD700; --dark: #0d1117; --blue: #1b2631; --secure-green: #2ecc71; }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        .fort-main { max-width: 500px; margin: 20px auto; border: 4px solid var(--gold); border-radius: 30px; background: var(--blue); padding: 25px; box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); text-align: center; position: relative; }
         
-        /* 3D Coin Cycle Animation */
-        .coin-box { perspective: 1000px; margin: 30px 0; }
-        .vantri-coin { width: 160px; height: 160px; margin: 0 auto; position: relative; transform-style: preserve-3d; animation: rotateCycle 7s linear infinite; }
-        .face { position: absolute; width: 100%; height: 100%; border-radius: 50%; backface-visibility: hidden; border: 4px solid #FFD700; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); }
-        .front { background: radial-gradient(circle, #fbc02d, #f57f17); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1b2631; font-size: 20px; }
+        /* Security Badge */
+        .secure-badge { background: var(--secure-green); color: white; padding: 5px 15px; border-radius: 50px; font-size: 10px; font-weight: bold; position: absolute; top: 15px; right: 15px; display: flex; align-items: center; box-shadow: 0 0 10px rgba(46, 204, 113, 0.5); }
+        .secure-badge span { margin-right: 5px; }
+
+        /* 3D Vantri Cycle (No Currency Sign) */
+        .coin-box { perspective: 1000px; margin: 40px 0; }
+        .vantri-coin { width: 180px; height: 180px; margin: 0 auto; position: relative; transform-style: preserve-3d; animation: rotateCycle 8s linear infinite; }
+        .face { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--gold); backface-visibility: hidden; }
+        .front { background: radial-gradient(circle, #fbc02d, #f57f17); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--blue); font-size: 24px; }
         .back { background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red); transform: rotateY(180deg); }
-        
         @keyframes rotateCycle { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
-        
-        .social-icons { display: flex; justify-content: space-around; margin-top: 25px; border-top: 1px solid rgba(255,215,0,0.2); padding-top: 20px; }
-        .icon-link { text-decoration: none; color: #FFD700; font-size: 12px; font-weight: bold; }
-        .icon-link img { width: 40px; display: block; margin: 0 auto 5px; }
+
+        /* Hub Links */
+        .hub-links { display: flex; justify-content: space-around; margin: 25px 0; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px; }
+        .hub-links a { text-decoration: none; color: var(--gold); font-weight: bold; font-size: 13px; }
+        .hub-links img { width: 40px; display: block; margin: 0 auto 8px; }
+
+        /* Admin Command */
+        .admin-box { margin-top: 30px; border-top: 2px dashed var(--gold); padding-top: 20px; }
+        .admin-input { width: 80%; padding: 12px; border-radius: 8px; border: none; margin-bottom: 12px; text-align: center; font-size: 1.1em; }
+        .admin-btn { background: var(--gold); color: var(--blue); border: none; padding: 12px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .admin-btn:hover { transform: scale(1.05); background: white; }
     </style>
 </head>
 <body>
 
-<div class="fort-container">
-    <div class="shahi-title">RAM DHARMAA</div>
-    <div class="sub-text">OFFICIAL • 1985 • KANPUR</div>
+<div class="fort-main">
+    <div class="secure-badge">
+        <span>●</span> GOOGLE 2FA VERIFIED
+    </div>
+
+    <h1 style="color: var(--gold); margin: 10px 0 0 0;">🚩 RAM DHARMAA 🚩</h1>
+    <p style="letter-spacing: 3px; font-size: 14px; opacity: 0.8;">EST. 1985 | KANPUR HQ</p>
 
     <div class="coin-box">
         <div class="vantri-coin">
@@ -36,17 +50,41 @@
         
     
 
-    <div class="social-icons">
-        <a href="https://t.me/abt66903" class="icon-link">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">TELEGRAM
+    <div class="hub-links">
+        <a href="https://t.me/abt66903" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">TELEGRAM
         </a>
-        <a href="https://twitter.com/abt66903" class="icon-link">
-            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" alt="X">TWITTER
-        </a>
+        <a href="https://twitter.com/abt66903" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png">X (TWITTER)
+        
+        <a href="https://www.facebook.com/profile.php?id=1000018918" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">FACEBOOK
+        
     </div>
 
-    <p style="font-size: 10px; margin-top: 20px; opacity: 0.5;">🔒 GOOGLE 2FA PROTECTED</p>
+    <div class="admin-box">
+        <h4 style="color: var(--gold); margin-bottom: 15px;">🛡️ ADMIN ACCESS ONLY</h4>
+        <input type="password" id="adminPass" class="admin-input" placeholder="Secret Command Code">
+        <br>
+        <button class="admin-btn" onclick="checkAccess()">ACCESS SYSTEM</button>
+    </div>
+
+    <p style="font-size: 10px; margin-top: 25px; opacity: 0.5; color: var(--gold);">
+        © 1985 GURU UNIVERSAL NETWORK | ALL RIGHTS RESERVED
+    </p>
 </div>
+
+<script>
+    function checkAccess() {
+        var pass = document.getElementById("adminPass").value;
+        if(pass === "1985") {
+            alert("Sovereign Access Granted. Welcome, AB Thakur.");
+            window.location.href = "https://github.com/abt66903-garbar/RAM-Dharmaa-official-";
+        } else {
+            alert("ACCESS DENIED. Secure Lock Active.");
+        }
+    }
+</script>
 
 </body>
 </html>
